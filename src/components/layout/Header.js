@@ -5,6 +5,9 @@ import {signIn, signOut} from 'next-auth/react';
 import { useSession } from 'next-auth/react';
 export default function Header() {
   const user = useSession()?.data?.user;
+ // const userName = useSession()?.data?.user?.name || useSession()?.data?.user?.email;
+  //console.log(user)
+ //console.log(userName)
   return (
     
       <header className="flex item-center justify-between">
@@ -19,6 +22,8 @@ export default function Header() {
       <nav className="flex  items-center gap-8 text-gray-500 font-semibold">
       {user ? (
         <>
+        <LINK href='/profile'>Profile</LINK>
+        <LINK href='/dashboard'>Dashboard</LINK>
         <button onClick={() => {
         signOut()
       }}>

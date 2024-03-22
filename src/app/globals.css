@@ -15,3 +15,8 @@ button{
 button[type="submit"],.submit{
  @apply border-0 bg-primary text-white;
 }
+
+
+div.tabs> *{
+  @apply bg-gray-300 text-gray-700 rounded-full py-2 px-4;
+}

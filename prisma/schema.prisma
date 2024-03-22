@@ -52,6 +52,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   Authenticator Authenticator[]
+  role          Roles           @default(USER)
 
   @@map("users")
 }
@@ -78,4 +79,14 @@ model Authenticator {
   transports           String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+enum Roles {
+  ADMIN
+  USER
+}
+
+model Categories {
+  id   String @id @default(cuid()) @map("_id")
+  name String
 }

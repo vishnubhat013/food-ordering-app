@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import {useEffect,useState} from "react";
-import {getCategories, createCategory} from '../_action'
+import {getCategories, createCategory, updateCategory} from '../_action'
 
 
 function page() {
@@ -9,8 +9,6 @@ function page() {
     const[CategoryName,setcategoryName] = useState('');
     const [categories, setCategories] = useState([]);
     const [editedCategory,seteditedcategory] =useState(null);
-    const [CategoryId, setCategoryid] =useState('');
-    const [updateCategory,setupdateCategory]=useState('');
 
     useEffect(() => {
         getCategories().then((res) => {
@@ -33,7 +31,13 @@ function page() {
             <>{editedCategory.name}</>
         )}
         </label>
-        <input type="text" value={CategoryName} onChange={ev=>setcategoryName(ev.target.value)}/> 
+        <input type="text" value={editedCategory ? editedCategory.name : CategoryName} onChange={ev=>{
+            if(editedCategory){
+                seteditedcategory({...editedCategory,name:ev.target.value})
+            }else{
+                setcategoryName(ev.target.value)
+            }
+        }}/> 
     </div>
     <div className="pb-4">
         <button  className="text-center" onClick={async () => {
@@ -46,12 +50,30 @@ function page() {
         }
 
             }/*/
+           if(!editedCategory){
             try{
-            await createCategory(CategoryName)
-            alert("Done");
-        }catch(e){
-            alert("Error");
-        }
+                await createCategory(CategoryName)
+                await getCategories().then((res) => {
+                    setCategories(res);
+                })
+                alert("Done");
+            }catch(e){
+                alert("Error");
+            }
+           }
+           else{
+            try{
+                console.log(editedCategory.id, editedCategory.name)
+                await updateCategory(editedCategory.id, editedCategory.name);
+                await getCategories().then((res) => {
+                    setCategories(res);
+                })
+                alert('Done');
+            }
+            catch(e){
+                alert(e.message);
+            }
+           }
     
     
         }}
@@ -60,6 +82,14 @@ function page() {
     </div>    
     <div>
      <h2 className="mt-8 font-semibold">Edit Category</h2>
+     <button 
+        onClick={()=>{
+            seteditedcategory(null);
+            setcategoryName('');
+        }}
+         className="bg-green-200 rounded-xl p-2 px-4 flex gap-1 cursor-pointer mb-2">
+            Add New Category
+        </button>
     {categories.length>0 && categories.map(c=>(
         <button 
         onClick={()=>{

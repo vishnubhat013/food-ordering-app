@@ -1,13 +1,7 @@
 'use server';
-
-
-
-
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
-
-
 
 export async function createCategory(name: string){
   await prisma.categories.create({
@@ -31,4 +25,15 @@ export async function updateCategory(id: string, name: string){
           name: name
       }
   })
+}
+
+export async function createMenuitem(Itemname: string, image: string, Description: string, Baseprice: string) {
+  await prisma.menuitems.create({
+      data: {
+          Itemname: Itemname,
+          image: image,
+          description: Description,
+          baseprice: Baseprice
+      }
+  });
 }

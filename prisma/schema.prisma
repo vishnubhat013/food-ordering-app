@@ -90,3 +90,11 @@ model Categories {
   id   String @id @default(cuid()) @map("_id")
   name String
 }
+
+model Menuitems {
+  id          String @id @default(cuid()) @map("_id")
+  Itemname    String
+  image       String
+  description String
+  baseprice   String
+}

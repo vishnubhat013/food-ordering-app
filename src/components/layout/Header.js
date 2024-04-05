@@ -14,7 +14,7 @@ export default function Header() {
       <LINK className="text-primary font-semibold text-2xl"  href="">Kitchen Bells</LINK>
       <nav className="flex  items-center gap-8 text-gray-500 font-semibold">
         <LINK href={'/'}>Home</LINK>
-        <LINK href={''}>Menu</LINK>
+        <LINK href={'/menu'}>Menu</LINK>
         <LINK href={'/about'}>About</LINK>
         <LINK href={''}>Contact</LINK>
         
@@ -23,6 +23,7 @@ export default function Header() {
       {user ? (
         <>
         <LINK href='/profile'>Profile</LINK>
+        <LINK href='/cart'>Cart</LINK>
         <LINK href='/dashboard'>Dashboard</LINK>
         <button onClick={() => {
         signOut()

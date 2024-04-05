@@ -98,3 +98,11 @@ model Menuitems {
   description String
   baseprice   String
 }
+
+model Orders {
+  id          String @id @default(cuid()) @map("_id")
+  Itemname    String
+  image       String
+  description String
+  baseprice   String
+}

@@ -1,10 +1,22 @@
 'use client'
 import React from 'react'
-import { useState } from 'react';
-import { createMenuitem } from '../_action';
+import {useEffect, useState } from 'react';
+import { createMenuitem, getMenuitem } from '../_action';
+import MenuItem from '../../components/menu/MenuItems';
 
 function page() {
     const [imageSrc, setImageSrc] = useState('');
+    const [menuItems, setMenuItems] = useState([]);
+
+       useEffect(()=>{
+        getMenuitem().then((res)=>{
+          setMenuItems(res);
+        })
+       },[])
+
+
+
+
         const [formData, setFormData] = useState({
           Itemname: '',
           image:'',
@@ -81,6 +93,26 @@ return (
     <h2 className="text-grey-400 font-bold text-center text-lg mt-24">
         Listed Menu-items
     </h2>
+    <div className="grid grid-cols-3 gap-4">
+  {menuItems.length > 0 && menuItems.map(c => (
+    <span key={c.id}>
+      <div className="bg-gray-200 p-4 rounded-lg text-center hover:bg-white hover:shadow-md hover:shadow-black/25 transition-all">
+        <div className="text-center">
+          {c.image && c.image.startsWith('data:image/') ? (
+            <img src={c.image} className="max-h-auto max-h-24 block mx-auto" alt="menu" />
+          ) : (
+            <img src={`data:image/png;base64,${c.image}`} className="max-h-auto max-h-24 block mx-auto" alt="menu" />
+          )}
+        </div>
+        <h4 className="font-semibold text-xl my-3">{c.Itemname}</h4>
+        <p className="text-primary text-sm my-2">{c.description}</p>
+        <p className=" text-black text-sm my-2"> $ {c.baseprice}</p>
+        
+      </div>
+    </span>
+  ))}
+</div>
+
     </div>
     </section>
 );

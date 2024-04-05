@@ -37,3 +37,18 @@ export async function createMenuitem(Itemname: string, image: string, Descriptio
       }
   });
 }
+export async function getMenuitem(){
+  return await prisma.menuitems.findMany();
+
+}
+
+export async function addToCart(image:string,ItemName:string,description:string,baseprice:string){
+   await prisma.orders.create({
+    data: {
+      Itemname: ItemName,
+      image:image,
+      description:description,
+      baseprice:baseprice
+    }
+  });
+}

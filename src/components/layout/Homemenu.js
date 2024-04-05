@@ -1,5 +1,4 @@
 import React from 'react'
-import Image from 'next/image'
 import MenuItems from '../menu/MenuItems'
 export default function Homemenu() {
   return (
@@ -16,14 +15,8 @@ export default function Homemenu() {
       <h3 className="uppercase text-gray-500 dont-semibold leading-4">check out</h3>
       <h2 className="text-primary font-bold text-4xl italic mb-4">Menu</h2>
     </div>
-    <div className="grid grid-cols-3 gap-4">
    <MenuItems/>
-   <MenuItems/>
-   <MenuItems/>
-   <MenuItems/>
-   <MenuItems/>
-   <MenuItems/>
-   </div>
+  
    
     </section>
   )

@@ -51,14 +51,8 @@ import LINK from "next/link";
 
 
     <div className="flex gap-2 tabs">
-      <LINK href={'/profile'}></LINK>
       
-      <>
-        <LINK href={'/categories'}>Categories</LINK>
-        <LINK href={'/menu-items'}> Menu-Items</LINK>
-        <LINK href={'/users'}>Users</LINK>
-      </>
-
+     
      
     </div>
         <h1 className="text-center font-semibold text-primary text-4xl mb-4">

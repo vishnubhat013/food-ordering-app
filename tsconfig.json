@@ -115,7 +115,7 @@
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx"
-, "src/app/lib/Sessionprovider.js"  ],
+, "src/app/lib/Sessionprovider.js", "src/app/menu-items/page.jsx"  ],
   "exclude": [
     "node_modules"
   ]

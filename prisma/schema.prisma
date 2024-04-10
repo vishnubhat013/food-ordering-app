@@ -105,4 +105,13 @@ model Orders {
   image       String
   description String
   baseprice   String
+  userId      String @map("user_id")
+}
+
+model placedorder {
+  id        String @id @default(cuid()) @map("_id")
+  Itemname  String
+  image     String
+  baseprice String
+  userId    String
 }

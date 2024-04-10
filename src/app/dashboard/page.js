@@ -9,10 +9,10 @@ function page() {
             Dashboard
     </h1>
     
-    <div className="flex items-center gap-8 text-grey- font-semibold text-xl">
+    <div className="flex text-center gap-8 text-grey- font-semibold text-xl mt-4">
         <LINK href={'/categories'}>Categories</LINK>
         <LINK href={'/menu-items'}> Menu-Items</LINK>
-        
+        <LINK href={'/orders'}>Orders</LINK>
         </div>
         </div>
     </section>

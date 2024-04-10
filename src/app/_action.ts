@@ -3,6 +3,14 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
+export async function getCurrentUser(userId: string){
+  return await prisma.user.findFirst({
+    where: {
+      id: userId
+    }
+  })
+}
+
 export async function createCategory(name: string){
   await prisma.categories.create({
       data: {
@@ -42,9 +50,10 @@ export async function getMenuitem(){
 
 }
 
-export async function addToCart(image:string,ItemName:string,description:string,baseprice:string){
+export async function addToCart(userId:string,image:string,ItemName:string,description:string,baseprice:string){
    await prisma.orders.create({
     data: {
+      userId:userId,
       Itemname: ItemName,
       image:image,
       description:description,
@@ -52,3 +61,41 @@ export async function addToCart(image:string,ItemName:string,description:string,
     }
   });
 }
+
+export async function getOrders(){
+  return await prisma.orders.findMany();
+}
+/*/
+export async function placedorders(image:string,ItemName:string,baseprice:string,userId:string){
+  await prisma.placedorder.create({
+   data: {
+     userId:userId,
+     Itemname: ItemName,
+     image:image,
+     baseprice:baseprice
+   }
+ });
+}/*/
+
+export  async function copyOrdersToPlacedOrders() {
+    const orders = await prisma.orders.findMany();
+    for (let order of orders) {
+      await prisma.placedorder.create({
+        data: {
+          userId:order.userId,
+     Itemname:order.Itemname,
+     image:order.image,
+     baseprice:order.baseprice
+        }
+      });
+    }
+  } 
+  export async function deletecartOrders() {
+      await prisma.orders.deleteMany();
+    } 
+
+
+  export async function placedOrderDisplay(){
+     return await prisma.placedorder.findMany();
+      
+    }

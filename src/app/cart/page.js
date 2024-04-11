@@ -33,7 +33,8 @@ export default function page() {
     <div className="text-center text-primary text-4xl font-bold mt-16 mb-8">
      Cart
     </div>
-    {Orders.length===0 }
+    {Orders.length === 0 && (
+
     <div>
       <h1 className="text-center mt-16 text-black-300 font-bold text-2xl">
     Add items to the cart
@@ -41,17 +42,14 @@ export default function page() {
     <button className="text-primary ">Buy
      Now</button>
     </div>
+    )}
     <div className="items-center px-24" >
     <div>
       {Orders.length>0 && Orders.map(c=>(
   
-      <div className='grid grid-cols-3 mt-4 px-8 bg-slate-100 '>
+      <div className='grid grid-cols-3 mt-4 px-8 bg-slate-100 py-4 rounded-lg items-center'>
       <div className="w-24">
-        {c.image && c.image.startsWith('data:image/') ? (
           <img src={c.image} className="max-h-auto max-h-24 block mx-auto" alt="menu" />
-        ) : (
-          <img src={`data:image/png;base64,₹0{c.image}`} className="max-h-auto max-h-24 block mx-auto" alt="menu" />
-        )}
       </div>
       <div>
       <h4 className="font-semibold text-xl my-3">{c.Itemname}   ₹ {c.baseprice} </h4>
@@ -62,8 +60,12 @@ export default function page() {
       </div>
   ))}
     </div>
+   {
+          Orders.length > 0 && (
     <button onClick={handelplacedorders} className="bg-primary text-white mt-8 ">Place Order</button>
-    </div>
+          )
+        }
+      </div>
     </section>
   )
 }

@@ -3,22 +3,21 @@ import React, { useEffect, useState } from 'react'
 import  LINK from "next/link";
 import {signIn, signOut} from 'next-auth/react';
 import { useSession } from 'next-auth/react';
-import { getCurrentUser } from '../../app/_action';
+import { getCurrentUser, getUserRole } from '../../app/_action';
 
 export default function Header() {
-   const [user, setUser] = useState(null);
    const session = useSession();
-   useEffect(() => {
-    if(session?.data?.user?.id){
-      getCurrentUser(session?.data?.user?.id).then((res) => {
-        setUser(res);
-      });
+    const user = session?.data?.user;
+    
+    const [role, setRole ] = useState('USER');
+    useEffect(() => {
+    async function fetchRole(){
+      await getUserRole(user.id).then((res) => {
+        console.log(res.role);
+      })
     }
-   },[]);
-
-  //const userName = session?.data?.user?.name || session?.data?.user?.email;
-  //console.log(user)
- //console.log(userName)
+  },[]);
+  
   return (
     
       <header className="flex item-center justify-between">
@@ -27,16 +26,12 @@ export default function Header() {
         <LINK href={'/'}>Home</LINK>
         <LINK href={'/menu'}>Menu</LINK>
         <LINK href={'/about'}>About</LINK>
-        <LINK href={''}>Contact</LINK>
-        
-      </nav>
-      <nav className="flex  items-center gap-8 text-gray-500 font-semibold">
+        <LINK href={'/contact'}>Contact</LINK>
       {user ? (
         <>
         <LINK href='/profile'>Profile</LINK>
           {
-            user?.role === 'ADMIN' ? (
-              
+            role === 'ADMIN' ? (
           <LINK href='/dashboard'>Dashboard</LINK>
             ): (
               <LINK href='/cart'>Cart</LINK>

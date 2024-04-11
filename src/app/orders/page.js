@@ -18,10 +18,10 @@ export default function page() {
     <section>
     <div className="mt-16">
     <h1 className="text-center text-primary font-bold text-2xl">Orders</h1>
-    <div>
+    <div className="grid lg:grid-cols-3 gap-5 md:grid-cols-2 grid-cols-1">
       {placedOrderitem.length>0 && placedOrderitem.map(c=>(
   
-  <div className='flex mt-4 px-8 bg-slate-100 '>
+  <div className='flex flex-col w-fit  mt-4 p-4 rounded-xl text-center bg-slate-100 '>
   <div>
     {c.userId}
   </div>

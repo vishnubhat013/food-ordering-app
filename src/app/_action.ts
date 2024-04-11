@@ -11,6 +11,14 @@ export async function getCurrentUser(userId: string){
   })
 }
 
+export async function getUserRole(userId: string){
+  return await prisma.user.findFirst({
+    where:{
+      id: userId
+    }
+  })
+}
+
 export async function createCategory(name: string){
   await prisma.categories.create({
       data: {

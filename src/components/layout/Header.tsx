@@ -3,20 +3,23 @@ import React, { useEffect, useState } from 'react'
 import  LINK from "next/link";
 import {signIn, signOut} from 'next-auth/react';
 import { useSession } from 'next-auth/react';
-import { getCurrentUser, getUserRole } from '../../app/_action';
+import {  getUserRole } from '../../app/_action';
+import { Roles } from '@prisma/client';
 
 export default function Header() {
    const session = useSession();
     const user = session?.data?.user;
     
-    const [role, setRole ] = useState('USER');
+    const [role, setRole ] = useState<Roles>("USER");
     useEffect(() => {
     async function fetchRole(){
-      await getUserRole(user.id).then((res) => {
-        console.log(res.role);
+      await getUserRole(session.data?.user.email??'').then((res) => {
+        setRole(res as Roles)
       })
     }
-  },[]);
+
+   fetchRole();
+  },[user,session]);
   
   return (
     

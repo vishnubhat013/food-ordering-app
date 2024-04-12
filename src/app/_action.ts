@@ -3,20 +3,21 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export async function getCurrentUser(userId: string){
-  return await prisma.user.findFirst({
-    where: {
-      id: userId
-    }
-  })
+export async function getUserRole(userEmail: string){
+  const user = await prisma.user.findFirst({
+    where:{
+      email: userEmail
+    },
+  });
+  return user?.role;
 }
 
-export async function getUserRole(userId: string){
-  return await prisma.user.findFirst({
+export async function removeItemFromCart(id: string){
+  await prisma.orders.delete({
     where:{
-      id: userId
+      id: id
     }
-  })
+  });
 }
 
 export async function createCategory(name: string){

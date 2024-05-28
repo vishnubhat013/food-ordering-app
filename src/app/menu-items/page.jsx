@@ -1,13 +1,14 @@
 'use client'
 import React from 'react'
 import {useEffect, useState } from 'react';
-import { createMenuitem, getMenuitem } from '../_action';
+import { createMenuitem, getMenuitem, removeItemFromListeditems } from '../_action';
 import MenuItem from '../../components/menu/MenuItems';
 import {CldUploadButton} from 'next-cloudinary';
 import { useSession } from 'next-auth/react';
 function page() {
     const [imageSrc, setImageSrc] = useState('');
     const [menuItems, setMenuItems] = useState([]);
+
     const [formData, setFormData] = useState({
       Itemname: '',
       image:'',
@@ -27,11 +28,8 @@ function page() {
           setMenuItems(res);
         })
        },[])
+    
 
-
-
-
-      
         const handleChange = (e) => {
           const { name, value } = e.target;
           //console.log(name, value); 
@@ -59,6 +57,11 @@ function page() {
           }
       };
 
+      
+
+
+
+
 return (
 
     <section className="mt-8">
@@ -66,7 +69,7 @@ return (
             Menu-Items
     </h1>
     <div>
-    <h2 className="text-grey-400 font-bold text-center text-lg mt-12">
+    <h2 className="text-grey-400 font-bold text-center text-2xl mt-12">
         Create New Menu-items
     </h2>
     <form  onSubmit={handleSubmit}className="mt-8 max-w-md mx-auto">
@@ -90,7 +93,7 @@ return (
     </form>
     </div>
     <div>
-    <h2 className="text-grey-400 font-bold text-center text-lg mt-24">
+    <h2 className="text-grey-400 font-bold text-center  mt-24 mb-12 text-2xl">
         Listed Menu-items
     </h2>
     <div className="grid grid-cols-3 gap-4">
@@ -105,9 +108,21 @@ return (
           )} */}
         </div>
         <h4 className="font-semibold text-xl my-3">{c.Itemname}</h4>
-        <p className="text-primary text-sm my-2">{c.description}</p>
+        <p className="text-black text-sm my-2">{c.description}</p>
         <p className=" text-black text-sm my-2"> ₹ {c.baseprice}</p>
-        
+        <button className="p-2 bg-black text-gray-50" onClick={async () => {
+        try{
+          await removeItemFromListeditems(c.id);
+          // await getmenuItemslist().then((res)=>{
+          // setMenuItemslist(res);
+           //})
+        alert('Item removed from cart');
+        }catch(e){
+          alert('Error in removing item');
+          console.log(e);
+        }
+      }}>Remove</button>
+      
       </div>
     </span>
   ))}

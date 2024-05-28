@@ -108,3 +108,12 @@ export  async function copyOrdersToPlacedOrders() {
      return await prisma.placedorder.findMany();
       
     }
+    
+
+    export async function removeItemFromListeditems(id: string){
+      await prisma.menuitems.delete({
+        where:{
+          id: id
+        }
+      });
+    }
